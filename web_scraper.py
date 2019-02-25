@@ -24,7 +24,7 @@ news = []
 newsbox = Listbox(root, height=30, width=150)
 newsbox.pack(side = "bottom")
 
-class Fortnitenews(self,master):
+class Fortnitenews:
     print("test)")
 
 
@@ -38,7 +38,8 @@ def newsresults(event):
         url = site + link
         news =  time + " | " + headline
         newsbox.insert(END,news)
-        print("refreshed news results")
+    print("refreshed news results")
+    print(url)
 
 playerName.focus()
 #print(time)
