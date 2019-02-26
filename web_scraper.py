@@ -45,7 +45,7 @@ def newsresults(event):
 
 def openarticle(event):
     webbrowser.open(playerUrl)
-    
+
 playerName.focus()
 #print(time)
 
@@ -67,4 +67,5 @@ print(news)
 #print(art.prettify())
 title = soup.find("h2",class_="trn-article__title")
 newsresults("<RETURN>")
+
 root.mainloop()
