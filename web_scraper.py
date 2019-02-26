@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from tkinter import *
 import requests
+import webbrowser
 
 root = Tk()
 root.title("Fortnite News")
@@ -12,7 +13,7 @@ nameLabel = Label(root,text='Enter player Name: ')
 nameLabel.pack(side = "top" )
 playerName.pack(side = "top")
 site ='https://fortnitetracker.com'
-pcPlayer= "profile/pc/"
+pcPlayer= "/profile/pc/"
 source = requests.get(site).text
 soup = BeautifulSoup(source, 'lxml')
 #print(soup.prettify())
@@ -32,6 +33,7 @@ def newsresults(event):
     newsbox.delete(0, END)
 
     for art in soup.find_all('article'):
+        global url
         time = art.time.text
         headline = art.h2.text
         link = art.h2.a['href']
@@ -41,19 +43,28 @@ def newsresults(event):
     print("refreshed news results")
     print(url)
 
+def openarticle(event):
+    webbrowser.open(playerUrl)
+    
 playerName.focus()
 #print(time)
 
-
+def openarticle(event):
+    webbrowser.open(playerUrl)
 
 def searchPlayer():
     player = playerName.get()
     print(player)
+    playerUrl = site +pcPlayer + player
+    print(playerUrl)
+    webbrowser.open(playerUrl)
 
 root.bind("<Return>", newsresults)
+
 searchButton = Button(root,text = "Search" ,command = searchPlayer)
 searchButton.pack()
 print(news)
 #print(art.prettify())
 title = soup.find("h2",class_="trn-article__title")
+newsresults("<RETURN>")
 root.mainloop()
