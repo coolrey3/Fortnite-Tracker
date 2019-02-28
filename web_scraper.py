@@ -31,7 +31,7 @@ global newsbox
 news = []
 newsbox = Listbox(root, height=30, width=150)
 newsbox.pack(side = "bottom")
-
+urlList = []
 class Fortnitenews:
     print("test)")
 
@@ -44,7 +44,7 @@ def newsresults(event):
     global soup
 
     global onDouble
-    urlList = []
+
 
     for art in soup.find_all('article'):
 
@@ -67,6 +67,7 @@ def newsresults(event):
             print(value)
             print(index)
             i = index
+            print(urlList)
             webbrowser.open(urlList[i])
 
     print("refreshed news results")
