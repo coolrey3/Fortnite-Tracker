@@ -3,6 +3,7 @@ from tkinter import *
 import requests
 import webbrowser
 
+
 root = Tk()
 root.title("Fortnite News")
 root.geometry("500x580")
@@ -13,8 +14,14 @@ nameLabel = Label(root,text='Enter player Name: ')
 nameLabel.pack(side = "top" )
 playerName.pack(side = "top")
 site ='https://fortnitetracker.com'
+#https://fortnitetracker.com/api/news-html?cpage=2
+apiSite = "https://fortnitetracker.com/api/news-html?cpage="
+pageNumber=0
+getPage = apiSite + str(pageNumber)
+
+
 pcPlayer= "/profile/pc/"
-source = requests.get(site).text
+source = requests.get(getPage).text
 soup = BeautifulSoup(source, 'lxml')
 #print(soup.prettify())
 article = soup.find('article' )
@@ -30,18 +37,49 @@ class Fortnitenews:
 
 
 def newsresults(event):
-    newsbox.delete(0, END)
+    global url
+    global pageNumber
+    global getPage
+    global source
+    global soup
+
+    global onDouble
+    urlList = []
 
     for art in soup.find_all('article'):
-        global url
+
         time = art.time.text
         headline = art.h2.text
         link = art.h2.a['href']
         url = site + link
         news =  time + " | " + headline
+        print(url)
         newsbox.insert(END,news)
+        urlList.append(url)
+
+
+        def onDouble(event):
+            widget = event.widget
+            selection = widget.curselection()
+            value = widget.get(selection[0])
+            print(url)
+            print(value)
+
     print("refreshed news results")
-    print(url)
+    pageNumber += 1
+    getPage = apiSite + str(pageNumber)
+    source = requests.get(getPage).text
+    soup = BeautifulSoup(source, 'lxml')
+
+
+
+    try:
+        newsbox.bind("<Double-Button-1>", onDouble)
+    except:
+        pass
+
+    print(urlList)
+
 
 def openarticle(event):
     webbrowser.open(playerUrl)
@@ -59,7 +97,13 @@ def searchPlayer():
     print(playerUrl)
     webbrowser.open(playerUrl)
 
+
+
+
 root.bind("<Return>", newsresults)
+
+
+
 
 searchButton = Button(root,text = "Search" ,command = searchPlayer)
 searchButton.pack()
