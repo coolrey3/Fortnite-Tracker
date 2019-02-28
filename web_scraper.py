@@ -61,9 +61,13 @@ def newsresults(event):
         def onDouble(event):
             widget = event.widget
             selection = widget.curselection()
+            index = widget.nearest(event.y)
             value = widget.get(selection[0])
             print(url)
             print(value)
+            print(index)
+            i = index
+            webbrowser.open(urlList[i])
 
     print("refreshed news results")
     pageNumber += 1
