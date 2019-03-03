@@ -32,8 +32,7 @@ news = []
 newsbox = Listbox(root, height=30, width=150)
 newsbox.pack(side = "bottom")
 urlList = []
-class Fortnitenews:
-    print("test)")
+#class Fortnitenews:
 
 
 def newsresults(event):
@@ -42,7 +41,6 @@ def newsresults(event):
     global getPage
     global source
     global soup
-
     global onDouble
 
 
@@ -53,7 +51,6 @@ def newsresults(event):
         link = art.h2.a['href']
         url = site + link
         news =  time + " | " + headline
-        print(url)
         newsbox.insert(END,news)
         urlList.append(url)
 
@@ -62,12 +59,7 @@ def newsresults(event):
             widget = event.widget
             selection = widget.curselection()
             index = widget.nearest(event.y)
-            value = widget.get(selection[0])
-            print(url)
-            print(value)
-            print(index)
             i = index
-            print(urlList)
             webbrowser.open(urlList[i])
 
     print("refreshed news results")
@@ -83,23 +75,19 @@ def newsresults(event):
     except:
         pass
 
-    print(urlList)
 
 
 def openarticle(event):
     webbrowser.open(playerUrl)
 
 playerName.focus()
-#print(time)
 
 def openarticle(event):
     webbrowser.open(playerUrl)
 
 def searchPlayer():
     player = playerName.get()
-    print(player)
     playerUrl = site +pcPlayer + player
-    print(playerUrl)
     webbrowser.open(playerUrl)
 
 
@@ -112,7 +100,6 @@ root.bind("<Return>", newsresults)
 
 searchButton = Button(root,text = "Search" ,command = searchPlayer)
 searchButton.pack()
-print(news)
 #print(art.prettify())
 title = soup.find("h2",class_="trn-article__title")
 newsresults("<RETURN>")
