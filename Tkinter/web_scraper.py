@@ -7,12 +7,17 @@ import webbrowser
 root = Tk()
 root.title("Fortnite News")
 root.geometry("500x580")
+
+
 mainTitle = Label(root, text = "Fortnite News and Stat Tracker")
 mainTitle.pack()
+
 playerName = Entry(root,width= 50)
 nameLabel = Label(root,text='Enter player Name: ')
 nameLabel.pack(side = "top" )
 playerName.pack(side = "top")
+
+
 site ='https://fortnitetracker.com'
 #https://fortnitetracker.com/api/news-html?cpage=2
 apiSite = "https://fortnitetracker.com/api/news-html?cpage="
@@ -32,7 +37,9 @@ news = []
 newsbox = Listbox(root, height=30, width=150)
 newsbox.pack(side = "bottom")
 urlList = []
-#class Fortnitenews:
+
+class Fortnitenews:
+    pass
 
 
 def newsresults(event):

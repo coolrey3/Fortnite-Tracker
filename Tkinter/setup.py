@@ -9,7 +9,7 @@ os.environ['TK_LIBRARY'] = r'C:\Users\Ray\AppData\Local\Programs\Python\Python37
 include_files = []
 
 # Dependencies are automatically detected, but it might need fine tuning.
-build_exe_options = {"packages": ["collections" , "datetime", "xlwt" , "xlrd","tkinter"], "include_files": ["tcl86t.dll", "tk86t.dll","icon.ico"] ,"excludes": [""] }
+build_exe_options = {"packages": ["webbrowser","datetime","requests","bs4","tkinter","SSL" ],"include_files": ["tcl86t.dll", "tk86t.dll"] ,"includes": ["idna.idnadata"], "optimize" :1,"excludes": [""] }
 
 
 
@@ -21,8 +21,8 @@ if sys.platform == "win32":
     base = "Win32GUI"
    # pass
 
-setup(  name = "Package Scanner",
+setup(  name = "Fortnite News",
         version = "1.0",
-        description = "Package Scanner",
+        description = "Fortnite News",
         options = {"build_exe": build_exe_options},
-        executables = [Executable("Package Scanner.py",base = base, icon="icon.ico")])
+        executables = [Executable("web_scraper.py",base = base)])
