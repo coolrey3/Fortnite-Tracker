@@ -3,19 +3,58 @@ from tkinter import *
 import requests
 import webbrowser
 
-
 root = Tk()
-root.title("Fortnite News")
-root.geometry("500x580")
+
+class GUI:
+
+    def openarticle(self, event):
+        self.webbrowser.open(playerUrl)
+
+    def openarticle(self, event):
+        self.webbrowser.open(playerUrl)
+
+    def searchPlayer(self):
+        self.player = playerName.get()
+        self.playerUrl = site + pcPlayer + player
+        self.webbrowser.open(playerUrl)
 
 
-mainTitle = Label(root, text = "Fortnite News and Stat Tracker")
-mainTitle.pack()
+    def __init__(self, master):
+        self.master = master
+        master.title("Fortnite News")
+        master.geometry("500x580")
 
-playerName = Entry(root,width= 50)
-nameLabel = Label(root,text='Enter player Name: ')
-nameLabel.pack(side = "top" )
-playerName.pack(side = "top")
+        self.mainTitle = Label(master, text="Fortnite News and Stat Tracker")
+        self.mainTitle.pack()
+
+        self.playerName = Entry(master, width=50)
+        self.playerName.pack(side="top")
+        self.nameLabel = Label(master, text='Enter player Name: ')
+        self.nameLabel.pack(side="top")
+
+        self.playerName.focus()
+
+        self.searchButton = Button(root, text="Search", command=GUI.searchPlayer)
+        self.searchButton.pack()
+
+
+
+        # self.greet_button = Button(master, text="Greet", command=self.greet)
+        # self.greet_button.pack()
+        #
+        # self.close_button = Button(master, text="Close", command=master.quit)
+        # self.close_button.pack()
+
+    # def greet(self):
+    #     print("Greetings!")
+
+
+
+
+
+
+
+
 
 
 site ='https://fortnitetracker.com'
@@ -84,18 +123,7 @@ def newsresults(event):
 
 
 
-def openarticle(event):
-    webbrowser.open(playerUrl)
 
-playerName.focus()
-
-def openarticle(event):
-    webbrowser.open(playerUrl)
-
-def searchPlayer():
-    player = playerName.get()
-    playerUrl = site +pcPlayer + player
-    webbrowser.open(playerUrl)
 
 
 
@@ -105,10 +133,12 @@ root.bind("<Return>", newsresults)
 
 
 
-searchButton = Button(root,text = "Search" ,command = searchPlayer)
-searchButton.pack()
+
 #print(art.prettify())
 title = soup.find("h2",class_="trn-article__title")
 newsresults("<RETURN>")
 
+
+
+my_gui = GUI(root)
 root.mainloop()
