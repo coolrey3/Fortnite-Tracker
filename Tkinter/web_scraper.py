@@ -4,6 +4,23 @@ import requests
 import webbrowser
 
 root = Tk()
+site ='https://fortnitetracker.com'
+#https://fortnitetracker.com/api/news-html?cpage=2
+apiSite = "https://fortnitetracker.com/api/news-html?cpage="
+pageNumber=0
+getPage = apiSite + str(pageNumber)
+pcPlayer= "/profile/pc/"
+source = requests.get(getPage).text
+soup = BeautifulSoup(source, 'lxml')
+#print(soup.prettify())
+article = soup.find('article' )
+print("Latest Articles")
+global news
+global eventbox
+news = []
+eventbox = Listbox(root, height=30, width=150)
+eventbox.pack(side ="bottom")
+urlList = []
 
 class GUI:
 
@@ -11,12 +28,12 @@ class GUI:
         self.webbrowser.open(playerUrl)
 
     def openarticle(self, event):
-        self.webbrowser.open(playerUrl)
+        self.webbrowser.open(self.playerUrl)
 
     def searchPlayer(self):
-        self.player = playerName.get()
-        self.playerUrl = site + pcPlayer + player
-        self.webbrowser.open(playerUrl)
+        self.player = self.playerName.get()
+        self.playerUrl = site + pcPlayer + self.player
+        self.webbrowser.open(self.playerUrl)
 
 
     def __init__(self, master):
@@ -28,13 +45,15 @@ class GUI:
         self.mainTitle.pack()
 
         self.playerName = Entry(master, width=50)
+        self.playerName.insert(END,'twitch.coolrey3')
         self.playerName.pack(side="top")
         self.nameLabel = Label(master, text='Enter player Name: ')
         self.nameLabel.pack(side="top")
 
         self.playerName.focus()
+        self.playerName = ''
 
-        self.searchButton = Button(root, text="Search", command=GUI.searchPlayer)
+        self.searchButton = Button(root, text="Search", command=GUI.searchPlayer(self))
         self.searchButton.pack()
 
 
@@ -48,34 +67,6 @@ class GUI:
     # def greet(self):
     #     print("Greetings!")
 
-
-
-
-
-
-
-
-
-
-site ='https://fortnitetracker.com'
-#https://fortnitetracker.com/api/news-html?cpage=2
-apiSite = "https://fortnitetracker.com/api/news-html?cpage="
-pageNumber=0
-getPage = apiSite + str(pageNumber)
-
-
-pcPlayer= "/profile/pc/"
-source = requests.get(getPage).text
-soup = BeautifulSoup(source, 'lxml')
-#print(soup.prettify())
-article = soup.find('article' )
-print("Latest Articles")
-global news
-global newsbox
-news = []
-newsbox = Listbox(root, height=30, width=150)
-newsbox.pack(side = "bottom")
-urlList = []
 
 class Fortnitenews:
     pass
@@ -97,7 +88,7 @@ def newsresults(event):
         link = art.h2.a['href']
         url = site + link
         news =  time + " | " + headline
-        newsbox.insert(END,news)
+        eventbox.insert(END, news)
         urlList.append(url)
 
 
@@ -117,7 +108,7 @@ def newsresults(event):
 
 
     try:
-        newsbox.bind("<Double-Button-1>", onDouble)
+        eventbox.bind("<Double-Button-1>", onDouble)
     except:
         pass
 
