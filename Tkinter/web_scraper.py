@@ -1,15 +1,21 @@
+#Import Modules
+
 from bs4 import BeautifulSoup
 from tkinter import *
 import requests
 import webbrowser
 
+#Gui Code
 root = Tk()
+
+
 site ='https://fortnitetracker.com'
-#https://fortnitetracker.com/api/news-html?cpage=2
 apiSite = "https://fortnitetracker.com/api/news-html?cpage="
+
 pageNumber=0
 getPage = apiSite + str(pageNumber)
 pcPlayer= "/profile/pc/"
+xboxplayer = "/profile/pc/"
 source = requests.get(getPage).text
 soup = BeautifulSoup(source, 'lxml')
 #print(soup.prettify())
@@ -24,18 +30,6 @@ urlList = []
 
 class GUI:
 
-    def openarticle(self, event):
-        self.webbrowser.open(playerUrl)
-
-    def openarticle(self, event):
-        self.webbrowser.open(self.playerUrl)
-
-    def searchPlayer(self):
-        self.player = self.playerName.get()
-        self.playerUrl = site + pcPlayer + self.player
-        self.webbrowser.open(self.playerUrl)
-
-
     def __init__(self, master):
         self.master = master
         master.title("Fortnite News")
@@ -43,33 +37,22 @@ class GUI:
 
         self.mainTitle = Label(master, text="Fortnite News and Stat Tracker")
         self.mainTitle.pack()
-
+        self.nameLabel = Label(master, text='Enter player Name: ')
+        self.nameLabel.pack(side="top")
         self.playerName = Entry(master, width=50)
         self.playerName.insert(END,'twitch.coolrey3')
         self.playerName.pack(side="top")
-        self.nameLabel = Label(master, text='Enter player Name: ')
-        self.nameLabel.pack(side="top")
-
         self.playerName.focus()
-        self.playerName = ''
-
-        self.searchButton = Button(root, text="Search", command=GUI.searchPlayer(self))
+        self.searchButton = Button(root, text="Search", command=lambda: GUI.search_player(self))
         self.searchButton.pack()
 
+    def search_player(self):
+        self.player = self.playerName.get()
+        self.playerUrl = site + pcPlayer + self.player
+        print(self.playerUrl)
+        webbrowser.open(self.playerUrl)
 
 
-        # self.greet_button = Button(master, text="Greet", command=self.greet)
-        # self.greet_button.pack()
-        #
-        # self.close_button = Button(master, text="Close", command=master.quit)
-        # self.close_button.pack()
-
-    # def greet(self):
-    #     print("Greetings!")
-
-
-class Fortnitenews:
-    pass
 
 
 def newsresults(event):
@@ -113,23 +96,8 @@ def newsresults(event):
         pass
 
 
-
-
-
-
-
-
 root.bind("<Return>", newsresults)
-
-
-
-
-
-#print(art.prettify())
 title = soup.find("h2",class_="trn-article__title")
 newsresults("<RETURN>")
-
-
-
 my_gui = GUI(root)
 root.mainloop()
