@@ -18,7 +18,7 @@ pcPlayer= "/profile/pc/"
 xboxplayer = "/profile/pc/"
 source = requests.get(getPage).text
 soup = BeautifulSoup(source, 'lxml')
-#print(soup.prettify())
+print(soup.prettify())
 article = soup.find('article' )
 print("Latest Articles")
 global news
